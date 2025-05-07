@@ -27,6 +27,7 @@
 
 namespace OpenAPI\Client\Test\Api;
 
+use OpenAPI\Client\Api\MxPlatformApi;
 use \OpenAPI\Client\Configuration;
 use \OpenAPI\Client\ApiException;
 use \OpenAPI\Client\ObjectSerializer;
@@ -595,8 +596,24 @@ class MxPlatformApiTest extends TestCase
      */
     public function testListInstitutions()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        $config = Configuration::getDefaultConfiguration()
+            ->setUsername('')
+            ->setPassword('');
+        $config->setHost("https://int-api.mx.com");
+
+        $apiInstance = new MxPlatformApi(
+            new \GuzzleHttp\Client(),
+            $config
+        );
+        $name = "";
+        $page = 1;
+        $records_per_page = 100;
+        try {
+            $result = $apiInstance->listInstitutions($name, $page, $records_per_page);
+            print_r($result);
+        } catch (\Exception $e) {
+            echo 'Exception when calling MxPlatformApi->listInstitutions: ', $e->getMessage(), PHP_EOL;
+        }
     }
 
     /**

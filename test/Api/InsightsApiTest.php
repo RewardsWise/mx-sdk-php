@@ -79,8 +79,54 @@ class InsightsApiTest extends TestCase
      */
     public function testListAccountsInsight()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\AccountsResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setAccounts([
+            [
+                'guid' => 'ACC-123',
+                'name' => 'Test Account',
+                'account_number' => '1234567890',
+                'balance' => 1000.00,
+                'currency_code' => 'USD'
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listAccountsInsight')
+            ->with($userGuid, $insightGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listAccountsInsight($userGuid, $insightGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\AccountsResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getAccounts());
+        $this->assertEquals('ACC-123', $response->getAccounts()[0]['guid']);
+        $this->assertEquals('Test Account', $response->getAccounts()[0]['name']);
+        $this->assertEquals('1234567890', $response->getAccounts()[0]['account_number']);
+        $this->assertEquals(1000.00, $response->getAccounts()[0]['balance']);
+        $this->assertEquals('USD', $response->getAccounts()[0]['currency_code']);
     }
 
     /**
@@ -91,8 +137,54 @@ class InsightsApiTest extends TestCase
      */
     public function testListCategoriesInsight()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\CategoriesResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setCategories([
+            [
+                'guid' => 'CAT-123',
+                'name' => 'Test Category',
+                'parent_guid' => null,
+                'type' => 'expense',
+                'description' => 'Test Category Description'
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listCategoriesInsight')
+            ->with($userGuid, $insightGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listCategoriesInsight($userGuid, $insightGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\CategoriesResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getCategories());
+        $this->assertEquals('CAT-123', $response->getCategories()[0]['guid']);
+        $this->assertEquals('Test Category', $response->getCategories()[0]['name']);
+        $this->assertNull($response->getCategories()[0]['parent_guid']);
+        $this->assertEquals('expense', $response->getCategories()[0]['type']);
+        $this->assertEquals('Test Category Description', $response->getCategories()[0]['description']);
     }
 
     /**
@@ -103,8 +195,52 @@ class InsightsApiTest extends TestCase
      */
     public function testListInsightsByAccount()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $accountGuid = 'ACC-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\InsightsResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setInsights([
+            [
+                'guid' => 'INS-123',
+                'name' => 'Test Insight',
+                'description' => 'Test Description',
+                'account_guid' => $accountGuid
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listInsightsByAccount')
+            ->with($accountGuid, $userGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listInsightsByAccount($accountGuid, $userGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\InsightsResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getInsights());
+        $this->assertEquals('INS-123', $response->getInsights()[0]['guid']);
+        $this->assertEquals('Test Insight', $response->getInsights()[0]['name']);
+        $this->assertEquals('Test Description', $response->getInsights()[0]['description']);
+        $this->assertEquals($accountGuid, $response->getInsights()[0]['account_guid']);
     }
 
     /**
@@ -115,8 +251,49 @@ class InsightsApiTest extends TestCase
      */
     public function testListInsightsUser()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\InsightsResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setInsights([
+            [
+                'guid' => 'INS-123',
+                'name' => 'Test Insight',
+                'description' => 'Test Description'
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listInsightsUser')
+            ->with($userGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listInsightsUser($userGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\InsightsResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getInsights());
+        $this->assertEquals('INS-123', $response->getInsights()[0]['guid']);
+        $this->assertEquals('Test Insight', $response->getInsights()[0]['name']);
+        $this->assertEquals('Test Description', $response->getInsights()[0]['description']);
     }
 
     /**
@@ -127,8 +304,54 @@ class InsightsApiTest extends TestCase
      */
     public function testListMerchantsInsight()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\MerchantsResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setMerchants([
+            [
+                'guid' => 'MER-123',
+                'name' => 'Test Merchant',
+                'logo_url' => 'https://example.com/logo.png',
+                'website_url' => 'https://example.com',
+                'description' => 'Test Merchant Description'
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listMerchantsInsight')
+            ->with($userGuid, $insightGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listMerchantsInsight($userGuid, $insightGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\MerchantsResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getMerchants());
+        $this->assertEquals('MER-123', $response->getMerchants()[0]['guid']);
+        $this->assertEquals('Test Merchant', $response->getMerchants()[0]['name']);
+        $this->assertEquals('https://example.com/logo.png', $response->getMerchants()[0]['logo_url']);
+        $this->assertEquals('https://example.com', $response->getMerchants()[0]['website_url']);
+        $this->assertEquals('Test Merchant Description', $response->getMerchants()[0]['description']);
     }
 
     /**
@@ -139,8 +362,58 @@ class InsightsApiTest extends TestCase
      */
     public function testListScheduledPaymentsInsight()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\ScheduledPaymentsResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setScheduledPayments([
+            [
+                'guid' => 'SP-123',
+                'amount' => 100.00,
+                'currency_code' => 'USD',
+                'description' => 'Test Scheduled Payment',
+                'status' => 'active',
+                'frequency' => 'monthly',
+                'next_payment_date' => '2024-04-01'
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listScheduledPaymentsInsight')
+            ->with($userGuid, $insightGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listScheduledPaymentsInsight($userGuid, $insightGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\ScheduledPaymentsResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getScheduledPayments());
+        $this->assertEquals('SP-123', $response->getScheduledPayments()[0]['guid']);
+        $this->assertEquals(100.00, $response->getScheduledPayments()[0]['amount']);
+        $this->assertEquals('USD', $response->getScheduledPayments()[0]['currency_code']);
+        $this->assertEquals('Test Scheduled Payment', $response->getScheduledPayments()[0]['description']);
+        $this->assertEquals('active', $response->getScheduledPayments()[0]['status']);
+        $this->assertEquals('monthly', $response->getScheduledPayments()[0]['frequency']);
+        $this->assertEquals('2024-04-01', $response->getScheduledPayments()[0]['next_payment_date']);
     }
 
     /**
@@ -151,8 +424,60 @@ class InsightsApiTest extends TestCase
      */
     public function testListTransactionsInsight()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+        $page = 1;
+        $recordsPerPage = 10;
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\TransactionsResponseBody();
+        $mockResponse->setPagination([
+            'current_page' => $page,
+            'total_pages' => 1,
+            'total_records' => 1
+        ]);
+        $mockResponse->setTransactions([
+            [
+                'guid' => 'TRN-123',
+                'amount' => 50.00,
+                'currency_code' => 'USD',
+                'description' => 'Test Transaction',
+                'category' => 'Food & Dining',
+                'merchant_guid' => 'MER-123',
+                'account_guid' => 'ACC-123',
+                'transacted_at' => '2024-03-20T10:00:00Z'
+            ]
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('listTransactionsInsight')
+            ->with($userGuid, $insightGuid, $page, $recordsPerPage)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->listTransactionsInsight($userGuid, $insightGuid, $page, $recordsPerPage);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\TransactionsResponseBody::class, $response);
+        $this->assertEquals($page, $response->getPagination()['current_page']);
+        $this->assertEquals(1, $response->getPagination()['total_pages']);
+        $this->assertEquals(1, $response->getPagination()['total_records']);
+        $this->assertCount(1, $response->getTransactions());
+        $this->assertEquals('TRN-123', $response->getTransactions()[0]['guid']);
+        $this->assertEquals(50.00, $response->getTransactions()[0]['amount']);
+        $this->assertEquals('USD', $response->getTransactions()[0]['currency_code']);
+        $this->assertEquals('Test Transaction', $response->getTransactions()[0]['description']);
+        $this->assertEquals('Food & Dining', $response->getTransactions()[0]['category']);
+        $this->assertEquals('MER-123', $response->getTransactions()[0]['merchant_guid']);
+        $this->assertEquals('ACC-123', $response->getTransactions()[0]['account_guid']);
+        $this->assertEquals('2024-03-20T10:00:00Z', $response->getTransactions()[0]['transacted_at']);
     }
 
     /**
@@ -163,8 +488,45 @@ class InsightsApiTest extends TestCase
      */
     public function testReadInsightsUser()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\InsightResponseBody();
+        $mockResponse->setInsight([
+            'guid' => $insightGuid,
+            'name' => 'Test Insight',
+            'description' => 'Test Description',
+            'type' => 'spending',
+            'status' => 'active',
+            'created_at' => '2024-03-20T10:00:00Z',
+            'updated_at' => '2024-03-20T10:00:00Z'
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('readInsightsUser')
+            ->with($userGuid, $insightGuid)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->readInsightsUser($userGuid, $insightGuid);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\InsightResponseBody::class, $response);
+        $this->assertEquals($insightGuid, $response->getInsight()['guid']);
+        $this->assertEquals('Test Insight', $response->getInsight()['name']);
+        $this->assertEquals('Test Description', $response->getInsight()['description']);
+        $this->assertEquals('spending', $response->getInsight()['type']);
+        $this->assertEquals('active', $response->getInsight()['status']);
+        $this->assertEquals('2024-03-20T10:00:00Z', $response->getInsight()['created_at']);
+        $this->assertEquals('2024-03-20T10:00:00Z', $response->getInsight()['updated_at']);
     }
 
     /**
@@ -175,7 +537,50 @@ class InsightsApiTest extends TestCase
      */
     public function testUpdateInsight()
     {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
+        // Create a mock for the InsightsApi class
+        $api = $this->getMockBuilder(\OpenAPI\Client\Api\InsightsApi::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // Set up test data
+        $userGuid = 'USR-123';
+        $insightGuid = 'INS-123';
+
+        // Create update request
+        $updateRequest = new \OpenAPI\Client\Model\InsightUpdateRequest();
+        $updateRequest->setName('Updated Insight Name');
+        $updateRequest->setDescription('Updated Description');
+        $updateRequest->setStatus('archived');
+
+        // Create a mock response
+        $mockResponse = new \OpenAPI\Client\Model\InsightResponse();
+        $mockResponse->setInsight([
+            'guid' => $insightGuid,
+            'name' => 'Updated Insight Name',
+            'description' => 'Updated Description',
+            'type' => 'spending',
+            'status' => 'archived',
+            'created_at' => '2024-03-20T10:00:00Z',
+            'updated_at' => '2024-03-21T10:00:00Z'
+        ]);
+
+        // Set up the mock to return our test response
+        $api->expects($this->once())
+            ->method('updateInsight')
+            ->with($userGuid, $insightGuid, $updateRequest)
+            ->willReturn($mockResponse);
+
+        // Call the method
+        $response = $api->updateInsight($userGuid, $insightGuid, $updateRequest);
+
+        // Assert the response
+        $this->assertInstanceOf(\OpenAPI\Client\Model\InsightResponse::class, $response);
+        $this->assertEquals($insightGuid, $response->getInsight()['guid']);
+        $this->assertEquals('Updated Insight Name', $response->getInsight()['name']);
+        $this->assertEquals('Updated Description', $response->getInsight()['description']);
+        $this->assertEquals('spending', $response->getInsight()['type']);
+        $this->assertEquals('archived', $response->getInsight()['status']);
+        $this->assertEquals('2024-03-20T10:00:00Z', $response->getInsight()['created_at']);
+        $this->assertEquals('2024-03-21T10:00:00Z', $response->getInsight()['updated_at']);
     }
 }

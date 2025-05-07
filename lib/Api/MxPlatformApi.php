@@ -12889,7 +12889,6 @@ class MxPlatformApi
 
             $statusCode = $response->getStatusCode();
 
-
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
@@ -12898,8 +12897,6 @@ class MxPlatformApi
                         $response,
                     );
             }
-
-            
 
             if ($statusCode < 200 || $statusCode > 299) {
                 throw new ApiException(
@@ -13038,15 +13035,6 @@ class MxPlatformApi
      */
     public function listInstitutionsRequest($name = null, $page = null, $records_per_page = null, $supports_account_identification = null, $supports_account_statement = null, $supports_account_verification = null, $supports_transaction_history = null, string $contentType = self::contentTypes['listInstitutions'][0])
     {
-
-
-
-
-
-
-
-
-
         $resourcePath = '/institutions';
         $formParams = [];
         $queryParams = [];
@@ -13117,9 +13105,6 @@ class MxPlatformApi
             true, // explode
             false // required
         ) ?? []);
-
-
-
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/vnd.mx.api.v1+json', ],
