@@ -15,17 +15,7 @@ PHP 8.1 and later.
 To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
 
 ```json
-{
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
-    }
-  ],
-  "require": {
-    "GIT_USER_ID/GIT_REPO_ID": "*@dev"
-  }
-}
+composer require rewards-wise/mx-sdk-php
 ```
 
 Then run `composer install`
