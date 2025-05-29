@@ -77,6 +77,63 @@ class TransactionsApi
         'usersUserGuidAccountsAccountGuidTransactionsPost' => [
             'application/json',
         ],
+        'createManagedTransaction' => [
+            'application/json',
+        ],
+        'createTransactionRule' => [
+            'application/json',
+        ],
+        'deleteManagedTransaction' => [
+            'application/json',
+        ],
+        'deleteTransactionRule' => [
+            'application/json',
+        ],
+        'enhanceTransactions' => [
+            'application/json',
+        ],
+        'listManagedTransactions' => [
+            'application/json',
+        ],
+        'listTransactionRules' => [
+            'application/json',
+        ],
+        'listTransactions' => [
+            'application/json',
+        ],
+        'listTransactionsByAccount' => [
+            'application/json',
+        ],
+        'listTransactionsByMember' => [
+            'application/json',
+        ],
+        'listTransactionsByTag' => [
+            'application/json',
+        ],
+        'readManagedTransaction' => [
+            'application/json',
+        ],
+        'readTransaction' => [
+            'application/json',
+        ],
+        'readTransactionRule' => [
+            'application/json',
+        ],
+        'updateManagedTransaction' => [
+            'application/json',
+        ],
+        'updateTransaction' => [
+            'application/json',
+        ],
+        'updateTransactionRule' => [
+            'application/json',
+        ],
+        'usersUserGuidTransactionsTransactionGuidSplitDelete' => [
+            'application/json',
+        ],
+        'usersUserGuidTransactionsTransactionGuidSplitPost' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -435,6 +492,5892 @@ class TransactionsApi
             $httpBody
         );
     }
+
+    /**
+     * Operation createManagedTransaction
+     *
+     * Create managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionCreateRequestBody $managed_transaction_create_request_body Managed transaction to be created. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionResponseBody
+     */
+    public function createManagedTransaction($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, string $contentType = self::contentTypes['createManagedTransaction'][0])
+    {
+        list($response) = $this->createManagedTransactionWithHttpInfo($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation createManagedTransactionWithHttpInfo
+     *
+     * Create managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionCreateRequestBody $managed_transaction_create_request_body Managed transaction to be created. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createManagedTransactionWithHttpInfo($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, string $contentType = self::contentTypes['createManagedTransaction'][0])
+    {
+        $request = $this->createManagedTransactionRequest($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createManagedTransactionAsync
+     *
+     * Create managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionCreateRequestBody $managed_transaction_create_request_body Managed transaction to be created. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createManagedTransactionAsync($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, string $contentType = self::contentTypes['createManagedTransaction'][0])
+    {
+        return $this->createManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createManagedTransactionAsyncWithHttpInfo
+     *
+     * Create managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionCreateRequestBody $managed_transaction_create_request_body Managed transaction to be created. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, string $contentType = self::contentTypes['createManagedTransaction'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionResponseBody';
+        $request = $this->createManagedTransactionRequest($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createManagedTransaction'
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionCreateRequestBody $managed_transaction_create_request_body Managed transaction to be created. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createManagedTransactionRequest($account_guid, $member_guid, $user_guid, $managed_transaction_create_request_body, string $contentType = self::contentTypes['createManagedTransaction'][0])
+    {
+
+        // verify the required parameter 'account_guid' is set
+        if ($account_guid === null || (is_array($account_guid) && count($account_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_guid when calling createManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'member_guid' is set
+        if ($member_guid === null || (is_array($member_guid) && count($member_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $member_guid when calling createManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling createManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'managed_transaction_create_request_body' is set
+        if ($managed_transaction_create_request_body === null || (is_array($managed_transaction_create_request_body) && count($managed_transaction_create_request_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $managed_transaction_create_request_body when calling createManagedTransaction'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/managed_members/{member_guid}/accounts/{account_guid}/transactions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_guid' . '}',
+                ObjectSerializer::toPathValue($account_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($member_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'member_guid' . '}',
+                ObjectSerializer::toPathValue($member_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($managed_transaction_create_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($managed_transaction_create_request_body));
+            } else {
+                $httpBody = $managed_transaction_create_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation createTransactionRule
+     *
+     * Create transaction rule
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleCreateRequestBody $transaction_rule_create_request_body TransactionRule object to be created with optional parameters (description) and required parameters (category_guid and match_description) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionRuleResponseBody
+     */
+    public function createTransactionRule($user_guid, $transaction_rule_create_request_body, string $contentType = self::contentTypes['createTransactionRule'][0])
+    {
+        list($response) = $this->createTransactionRuleWithHttpInfo($user_guid, $transaction_rule_create_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation createTransactionRuleWithHttpInfo
+     *
+     * Create transaction rule
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleCreateRequestBody $transaction_rule_create_request_body TransactionRule object to be created with optional parameters (description) and required parameters (category_guid and match_description) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionRuleResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function createTransactionRuleWithHttpInfo($user_guid, $transaction_rule_create_request_body, string $contentType = self::contentTypes['createTransactionRule'][0])
+    {
+        $request = $this->createTransactionRuleRequest($user_guid, $transaction_rule_create_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation createTransactionRuleAsync
+     *
+     * Create transaction rule
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleCreateRequestBody $transaction_rule_create_request_body TransactionRule object to be created with optional parameters (description) and required parameters (category_guid and match_description) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createTransactionRuleAsync($user_guid, $transaction_rule_create_request_body, string $contentType = self::contentTypes['createTransactionRule'][0])
+    {
+        return $this->createTransactionRuleAsyncWithHttpInfo($user_guid, $transaction_rule_create_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation createTransactionRuleAsyncWithHttpInfo
+     *
+     * Create transaction rule
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleCreateRequestBody $transaction_rule_create_request_body TransactionRule object to be created with optional parameters (description) and required parameters (category_guid and match_description) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createTransactionRuleAsyncWithHttpInfo($user_guid, $transaction_rule_create_request_body, string $contentType = self::contentTypes['createTransactionRule'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionRuleResponseBody';
+        $request = $this->createTransactionRuleRequest($user_guid, $transaction_rule_create_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'createTransactionRule'
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleCreateRequestBody $transaction_rule_create_request_body TransactionRule object to be created with optional parameters (description) and required parameters (category_guid and match_description) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function createTransactionRuleRequest($user_guid, $transaction_rule_create_request_body, string $contentType = self::contentTypes['createTransactionRule'][0])
+    {
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling createTransactionRule'
+            );
+        }
+
+        // verify the required parameter 'transaction_rule_create_request_body' is set
+        if ($transaction_rule_create_request_body === null || (is_array($transaction_rule_create_request_body) && count($transaction_rule_create_request_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_rule_create_request_body when calling createTransactionRule'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transaction_rules';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($transaction_rule_create_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($transaction_rule_create_request_body));
+            } else {
+                $httpBody = $transaction_rule_create_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteManagedTransaction
+     *
+     * Delete managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteManagedTransaction($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['deleteManagedTransaction'][0])
+    {
+        $this->deleteManagedTransactionWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType);
+    }
+
+    /**
+     * Operation deleteManagedTransactionWithHttpInfo
+     *
+     * Delete managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteManagedTransactionWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['deleteManagedTransaction'][0])
+    {
+        $request = $this->deleteManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteManagedTransactionAsync
+     *
+     * Delete managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteManagedTransactionAsync($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['deleteManagedTransaction'][0])
+    {
+        return $this->deleteManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteManagedTransactionAsyncWithHttpInfo
+     *
+     * Delete managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['deleteManagedTransaction'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteManagedTransaction'
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['deleteManagedTransaction'][0])
+    {
+
+        // verify the required parameter 'account_guid' is set
+        if ($account_guid === null || (is_array($account_guid) && count($account_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_guid when calling deleteManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'member_guid' is set
+        if ($member_guid === null || (is_array($member_guid) && count($member_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $member_guid when calling deleteManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling deleteManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling deleteManagedTransaction'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/managed_members/{member_guid}/accounts/{account_guid}/transactions/{transaction_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_guid' . '}',
+                ObjectSerializer::toPathValue($account_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($member_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'member_guid' . '}',
+                ObjectSerializer::toPathValue($member_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteTransactionRule
+     *
+     * Delete transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteTransactionRule($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['deleteTransactionRule'][0])
+    {
+        $this->deleteTransactionRuleWithHttpInfo($transaction_rule_guid, $user_guid, $contentType);
+    }
+
+    /**
+     * Operation deleteTransactionRuleWithHttpInfo
+     *
+     * Delete transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteTransactionRuleWithHttpInfo($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['deleteTransactionRule'][0])
+    {
+        $request = $this->deleteTransactionRuleRequest($transaction_rule_guid, $user_guid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteTransactionRuleAsync
+     *
+     * Delete transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTransactionRuleAsync($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['deleteTransactionRule'][0])
+    {
+        return $this->deleteTransactionRuleAsyncWithHttpInfo($transaction_rule_guid, $user_guid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteTransactionRuleAsyncWithHttpInfo
+     *
+     * Delete transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTransactionRuleAsyncWithHttpInfo($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['deleteTransactionRule'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteTransactionRuleRequest($transaction_rule_guid, $user_guid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteTransactionRule'
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteTransactionRuleRequest($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['deleteTransactionRule'][0])
+    {
+
+        // verify the required parameter 'transaction_rule_guid' is set
+        if ($transaction_rule_guid === null || (is_array($transaction_rule_guid) && count($transaction_rule_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_rule_guid when calling deleteTransactionRule'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling deleteTransactionRule'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transaction_rules/{transaction_rule_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($transaction_rule_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_rule_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_rule_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation enhanceTransactions
+     *
+     * Enhance transactions
+     *
+     * @param  \OpenAPI\Client\Model\EnhanceTransactionsRequestBody $enhance_transactions_request_body Transaction object to be enhanced (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enhanceTransactions'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\EnhanceTransactionsResponseBody
+     */
+    public function enhanceTransactions($enhance_transactions_request_body, string $contentType = self::contentTypes['enhanceTransactions'][0])
+    {
+        list($response) = $this->enhanceTransactionsWithHttpInfo($enhance_transactions_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation enhanceTransactionsWithHttpInfo
+     *
+     * Enhance transactions
+     *
+     * @param  \OpenAPI\Client\Model\EnhanceTransactionsRequestBody $enhance_transactions_request_body Transaction object to be enhanced (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enhanceTransactions'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\EnhanceTransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function enhanceTransactionsWithHttpInfo($enhance_transactions_request_body, string $contentType = self::contentTypes['enhanceTransactions'][0])
+    {
+        $request = $this->enhanceTransactionsRequest($enhance_transactions_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\EnhanceTransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\EnhanceTransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\EnhanceTransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation enhanceTransactionsAsync
+     *
+     * Enhance transactions
+     *
+     * @param  \OpenAPI\Client\Model\EnhanceTransactionsRequestBody $enhance_transactions_request_body Transaction object to be enhanced (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enhanceTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function enhanceTransactionsAsync($enhance_transactions_request_body, string $contentType = self::contentTypes['enhanceTransactions'][0])
+    {
+        return $this->enhanceTransactionsAsyncWithHttpInfo($enhance_transactions_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation enhanceTransactionsAsyncWithHttpInfo
+     *
+     * Enhance transactions
+     *
+     * @param  \OpenAPI\Client\Model\EnhanceTransactionsRequestBody $enhance_transactions_request_body Transaction object to be enhanced (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enhanceTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function enhanceTransactionsAsyncWithHttpInfo($enhance_transactions_request_body, string $contentType = self::contentTypes['enhanceTransactions'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\EnhanceTransactionsResponseBody';
+        $request = $this->enhanceTransactionsRequest($enhance_transactions_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'enhanceTransactions'
+     *
+     * @param  \OpenAPI\Client\Model\EnhanceTransactionsRequestBody $enhance_transactions_request_body Transaction object to be enhanced (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['enhanceTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function enhanceTransactionsRequest($enhance_transactions_request_body, string $contentType = self::contentTypes['enhanceTransactions'][0])
+    {
+
+        // verify the required parameter 'enhance_transactions_request_body' is set
+        if ($enhance_transactions_request_body === null || (is_array($enhance_transactions_request_body) && count($enhance_transactions_request_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $enhance_transactions_request_body when calling enhanceTransactions'
+            );
+        }
+
+
+        $resourcePath = '/transactions/enhance';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($enhance_transactions_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($enhance_transactions_request_body));
+            } else {
+                $httpBody = $enhance_transactions_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listManagedTransactions
+     *
+     * List managed transactions
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listManagedTransactions'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionsResponseBody
+     */
+    public function listManagedTransactions($account_guid, $member_guid, $user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listManagedTransactions'][0])
+    {
+        list($response) = $this->listManagedTransactionsWithHttpInfo($account_guid, $member_guid, $user_guid, $page, $records_per_page, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listManagedTransactionsWithHttpInfo
+     *
+     * List managed transactions
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listManagedTransactions'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listManagedTransactionsWithHttpInfo($account_guid, $member_guid, $user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listManagedTransactions'][0])
+    {
+        $request = $this->listManagedTransactionsRequest($account_guid, $member_guid, $user_guid, $page, $records_per_page, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listManagedTransactionsAsync
+     *
+     * List managed transactions
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listManagedTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listManagedTransactionsAsync($account_guid, $member_guid, $user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listManagedTransactions'][0])
+    {
+        return $this->listManagedTransactionsAsyncWithHttpInfo($account_guid, $member_guid, $user_guid, $page, $records_per_page, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listManagedTransactionsAsyncWithHttpInfo
+     *
+     * List managed transactions
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listManagedTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listManagedTransactionsAsyncWithHttpInfo($account_guid, $member_guid, $user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listManagedTransactions'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionsResponseBody';
+        $request = $this->listManagedTransactionsRequest($account_guid, $member_guid, $user_guid, $page, $records_per_page, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listManagedTransactions'
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listManagedTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listManagedTransactionsRequest($account_guid, $member_guid, $user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listManagedTransactions'][0])
+    {
+
+        // verify the required parameter 'account_guid' is set
+        if ($account_guid === null || (is_array($account_guid) && count($account_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_guid when calling listManagedTransactions'
+            );
+        }
+
+        // verify the required parameter 'member_guid' is set
+        if ($member_guid === null || (is_array($member_guid) && count($member_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $member_guid when calling listManagedTransactions'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling listManagedTransactions'
+            );
+        }
+
+
+
+
+        $resourcePath = '/users/{user_guid}/managed_members/{member_guid}/accounts/{account_guid}/transactions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $records_per_page,
+            'records_per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($account_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_guid' . '}',
+                ObjectSerializer::toPathValue($account_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($member_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'member_guid' . '}',
+                ObjectSerializer::toPathValue($member_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listTransactionRules
+     *
+     * List transaction rules
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionRules'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionRulesResponseBody
+     */
+    public function listTransactionRules($user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listTransactionRules'][0])
+    {
+        list($response) = $this->listTransactionRulesWithHttpInfo($user_guid, $page, $records_per_page, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listTransactionRulesWithHttpInfo
+     *
+     * List transaction rules
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionRules'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionRulesResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listTransactionRulesWithHttpInfo($user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listTransactionRules'][0])
+    {
+        $request = $this->listTransactionRulesRequest($user_guid, $page, $records_per_page, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionRulesResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionRulesResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionRulesResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTransactionRulesAsync
+     *
+     * List transaction rules
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionRules'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionRulesAsync($user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listTransactionRules'][0])
+    {
+        return $this->listTransactionRulesAsyncWithHttpInfo($user_guid, $page, $records_per_page, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listTransactionRulesAsyncWithHttpInfo
+     *
+     * List transaction rules
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionRules'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionRulesAsyncWithHttpInfo($user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listTransactionRules'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionRulesResponseBody';
+        $request = $this->listTransactionRulesRequest($user_guid, $page, $records_per_page, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listTransactionRules'
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionRules'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listTransactionRulesRequest($user_guid, $page = null, $records_per_page = null, string $contentType = self::contentTypes['listTransactionRules'][0])
+    {
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling listTransactionRules'
+            );
+        }
+
+
+
+
+        $resourcePath = '/users/{user_guid}/transaction_rules';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $records_per_page,
+            'records_per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listTransactions
+     *
+     * List transactions
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactions'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionsResponseBody
+     */
+    public function listTransactions($user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactions'][0])
+    {
+        list($response) = $this->listTransactionsWithHttpInfo($user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listTransactionsWithHttpInfo
+     *
+     * List transactions
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactions'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listTransactionsWithHttpInfo($user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactions'][0])
+    {
+        $request = $this->listTransactionsRequest($user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTransactionsAsync
+     *
+     * List transactions
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsAsync($user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactions'][0])
+    {
+        return $this->listTransactionsAsyncWithHttpInfo($user_guid, $from_date, $page, $records_per_page, $to_date, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listTransactionsAsyncWithHttpInfo
+     *
+     * List transactions
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsAsyncWithHttpInfo($user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactions'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionsResponseBody';
+        $request = $this->listTransactionsRequest($user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listTransactions'
+     *
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listTransactionsRequest($user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactions'][0])
+    {
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling listTransactions'
+            );
+        }
+
+
+
+
+
+
+        $resourcePath = '/users/{user_guid}/transactions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $from_date,
+            'from_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $records_per_page,
+            'records_per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $to_date,
+            'to_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listTransactionsByAccount
+     *
+     * List transactions by account
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByAccount'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionsResponseBody
+     */
+    public function listTransactionsByAccount($account_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByAccount'][0])
+    {
+        list($response) = $this->listTransactionsByAccountWithHttpInfo($account_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listTransactionsByAccountWithHttpInfo
+     *
+     * List transactions by account
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByAccount'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listTransactionsByAccountWithHttpInfo($account_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByAccount'][0])
+    {
+        $request = $this->listTransactionsByAccountRequest($account_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTransactionsByAccountAsync
+     *
+     * List transactions by account
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByAccount'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsByAccountAsync($account_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByAccount'][0])
+    {
+        return $this->listTransactionsByAccountAsyncWithHttpInfo($account_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listTransactionsByAccountAsyncWithHttpInfo
+     *
+     * List transactions by account
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByAccount'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsByAccountAsyncWithHttpInfo($account_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByAccount'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionsResponseBody';
+        $request = $this->listTransactionsByAccountRequest($account_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listTransactionsByAccount'
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByAccount'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listTransactionsByAccountRequest($account_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByAccount'][0])
+    {
+
+        // verify the required parameter 'account_guid' is set
+        if ($account_guid === null || (is_array($account_guid) && count($account_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_guid when calling listTransactionsByAccount'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling listTransactionsByAccount'
+            );
+        }
+
+
+
+
+
+
+        $resourcePath = '/users/{user_guid}/accounts/{account_guid}/transactions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $from_date,
+            'from_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $records_per_page,
+            'records_per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $to_date,
+            'to_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($account_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_guid' . '}',
+                ObjectSerializer::toPathValue($account_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listTransactionsByMember
+     *
+     * List transactions by member
+     *
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByMember'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionsResponseBody
+     */
+    public function listTransactionsByMember($member_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByMember'][0])
+    {
+        list($response) = $this->listTransactionsByMemberWithHttpInfo($member_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listTransactionsByMemberWithHttpInfo
+     *
+     * List transactions by member
+     *
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByMember'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listTransactionsByMemberWithHttpInfo($member_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByMember'][0])
+    {
+        $request = $this->listTransactionsByMemberRequest($member_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTransactionsByMemberAsync
+     *
+     * List transactions by member
+     *
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByMember'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsByMemberAsync($member_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByMember'][0])
+    {
+        return $this->listTransactionsByMemberAsyncWithHttpInfo($member_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listTransactionsByMemberAsyncWithHttpInfo
+     *
+     * List transactions by member
+     *
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByMember'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsByMemberAsyncWithHttpInfo($member_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByMember'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionsResponseBody';
+        $request = $this->listTransactionsByMemberRequest($member_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listTransactionsByMember'
+     *
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByMember'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listTransactionsByMemberRequest($member_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByMember'][0])
+    {
+
+        // verify the required parameter 'member_guid' is set
+        if ($member_guid === null || (is_array($member_guid) && count($member_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $member_guid when calling listTransactionsByMember'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling listTransactionsByMember'
+            );
+        }
+
+
+
+
+
+
+        $resourcePath = '/users/{user_guid}/members/{member_guid}/transactions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $from_date,
+            'from_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $records_per_page,
+            'records_per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $to_date,
+            'to_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($member_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'member_guid' . '}',
+                ObjectSerializer::toPathValue($member_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation listTransactionsByTag
+     *
+     * List transactions by tag
+     *
+     * @param  string $tag_guid The unique id for a &#x60;tag&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByTag'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionsResponseBody
+     */
+    public function listTransactionsByTag($tag_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByTag'][0])
+    {
+        list($response) = $this->listTransactionsByTagWithHttpInfo($tag_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listTransactionsByTagWithHttpInfo
+     *
+     * List transactions by tag
+     *
+     * @param  string $tag_guid The unique id for a &#x60;tag&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByTag'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listTransactionsByTagWithHttpInfo($tag_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByTag'][0])
+    {
+        $request = $this->listTransactionsByTagRequest($tag_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listTransactionsByTagAsync
+     *
+     * List transactions by tag
+     *
+     * @param  string $tag_guid The unique id for a &#x60;tag&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByTag'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsByTagAsync($tag_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByTag'][0])
+    {
+        return $this->listTransactionsByTagAsyncWithHttpInfo($tag_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listTransactionsByTagAsyncWithHttpInfo
+     *
+     * List transactions by tag
+     *
+     * @param  string $tag_guid The unique id for a &#x60;tag&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByTag'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listTransactionsByTagAsyncWithHttpInfo($tag_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByTag'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionsResponseBody';
+        $request = $this->listTransactionsByTagRequest($tag_guid, $user_guid, $from_date, $page, $records_per_page, $to_date, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listTransactionsByTag'
+     *
+     * @param  string $tag_guid The unique id for a &#x60;tag&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string|null $from_date Filter transactions from this date. (optional)
+     * @param  int|null $page Specify current page. (optional)
+     * @param  int|null $records_per_page Specify records per page. (optional)
+     * @param  string|null $to_date Filter transactions to this date. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTransactionsByTag'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listTransactionsByTagRequest($tag_guid, $user_guid, $from_date = null, $page = null, $records_per_page = null, $to_date = null, string $contentType = self::contentTypes['listTransactionsByTag'][0])
+    {
+
+        // verify the required parameter 'tag_guid' is set
+        if ($tag_guid === null || (is_array($tag_guid) && count($tag_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $tag_guid when calling listTransactionsByTag'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling listTransactionsByTag'
+            );
+        }
+
+
+
+
+
+
+        $resourcePath = '/users/{user_guid}/tags/{tag_guid}/transactions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $from_date,
+            'from_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $records_per_page,
+            'records_per_page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $to_date,
+            'to_date', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($tag_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'tag_guid' . '}',
+                ObjectSerializer::toPathValue($tag_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation readManagedTransaction
+     *
+     * Read managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionResponseBody
+     */
+    public function readManagedTransaction($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['readManagedTransaction'][0])
+    {
+        list($response) = $this->readManagedTransactionWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation readManagedTransactionWithHttpInfo
+     *
+     * Read managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function readManagedTransactionWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['readManagedTransaction'][0])
+    {
+        $request = $this->readManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation readManagedTransactionAsync
+     *
+     * Read managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function readManagedTransactionAsync($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['readManagedTransaction'][0])
+    {
+        return $this->readManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation readManagedTransactionAsyncWithHttpInfo
+     *
+     * Read managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function readManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['readManagedTransaction'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionResponseBody';
+        $request = $this->readManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'readManagedTransaction'
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function readManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, string $contentType = self::contentTypes['readManagedTransaction'][0])
+    {
+
+        // verify the required parameter 'account_guid' is set
+        if ($account_guid === null || (is_array($account_guid) && count($account_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_guid when calling readManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'member_guid' is set
+        if ($member_guid === null || (is_array($member_guid) && count($member_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $member_guid when calling readManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling readManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling readManagedTransaction'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/managed_members/{member_guid}/accounts/{account_guid}/transactions/{transaction_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_guid' . '}',
+                ObjectSerializer::toPathValue($account_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($member_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'member_guid' . '}',
+                ObjectSerializer::toPathValue($member_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation readTransaction
+     *
+     * Read transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionResponseBody
+     */
+    public function readTransaction($transaction_guid, $user_guid, string $contentType = self::contentTypes['readTransaction'][0])
+    {
+        list($response) = $this->readTransactionWithHttpInfo($transaction_guid, $user_guid, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation readTransactionWithHttpInfo
+     *
+     * Read transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function readTransactionWithHttpInfo($transaction_guid, $user_guid, string $contentType = self::contentTypes['readTransaction'][0])
+    {
+        $request = $this->readTransactionRequest($transaction_guid, $user_guid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation readTransactionAsync
+     *
+     * Read transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function readTransactionAsync($transaction_guid, $user_guid, string $contentType = self::contentTypes['readTransaction'][0])
+    {
+        return $this->readTransactionAsyncWithHttpInfo($transaction_guid, $user_guid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation readTransactionAsyncWithHttpInfo
+     *
+     * Read transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function readTransactionAsyncWithHttpInfo($transaction_guid, $user_guid, string $contentType = self::contentTypes['readTransaction'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionResponseBody';
+        $request = $this->readTransactionRequest($transaction_guid, $user_guid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'readTransaction'
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function readTransactionRequest($transaction_guid, $user_guid, string $contentType = self::contentTypes['readTransaction'][0])
+    {
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling readTransaction'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling readTransaction'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transactions/{transaction_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation readTransactionRule
+     *
+     * Read transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionRuleResponseBody
+     */
+    public function readTransactionRule($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['readTransactionRule'][0])
+    {
+        list($response) = $this->readTransactionRuleWithHttpInfo($transaction_rule_guid, $user_guid, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation readTransactionRuleWithHttpInfo
+     *
+     * Read transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionRuleResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function readTransactionRuleWithHttpInfo($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['readTransactionRule'][0])
+    {
+        $request = $this->readTransactionRuleRequest($transaction_rule_guid, $user_guid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation readTransactionRuleAsync
+     *
+     * Read transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function readTransactionRuleAsync($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['readTransactionRule'][0])
+    {
+        return $this->readTransactionRuleAsyncWithHttpInfo($transaction_rule_guid, $user_guid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation readTransactionRuleAsyncWithHttpInfo
+     *
+     * Read transaction rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function readTransactionRuleAsyncWithHttpInfo($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['readTransactionRule'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionRuleResponseBody';
+        $request = $this->readTransactionRuleRequest($transaction_rule_guid, $user_guid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'readTransactionRule'
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function readTransactionRuleRequest($transaction_rule_guid, $user_guid, string $contentType = self::contentTypes['readTransactionRule'][0])
+    {
+
+        // verify the required parameter 'transaction_rule_guid' is set
+        if ($transaction_rule_guid === null || (is_array($transaction_rule_guid) && count($transaction_rule_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_rule_guid when calling readTransactionRule'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling readTransactionRule'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transaction_rules/{transaction_rule_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($transaction_rule_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_rule_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_rule_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateManagedTransaction
+     *
+     * Update managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionUpdateRequestBody $managed_transaction_update_request_body Managed transaction object to be updated (While no single parameter is required, the request body can&#39;t be empty) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionResponseBody
+     */
+    public function updateManagedTransaction($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, string $contentType = self::contentTypes['updateManagedTransaction'][0])
+    {
+        list($response) = $this->updateManagedTransactionWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation updateManagedTransactionWithHttpInfo
+     *
+     * Update managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionUpdateRequestBody $managed_transaction_update_request_body Managed transaction object to be updated (While no single parameter is required, the request body can&#39;t be empty) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateManagedTransactionWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, string $contentType = self::contentTypes['updateManagedTransaction'][0])
+    {
+        $request = $this->updateManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateManagedTransactionAsync
+     *
+     * Update managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionUpdateRequestBody $managed_transaction_update_request_body Managed transaction object to be updated (While no single parameter is required, the request body can&#39;t be empty) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateManagedTransactionAsync($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, string $contentType = self::contentTypes['updateManagedTransaction'][0])
+    {
+        return $this->updateManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateManagedTransactionAsyncWithHttpInfo
+     *
+     * Update managed transaction
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionUpdateRequestBody $managed_transaction_update_request_body Managed transaction object to be updated (While no single parameter is required, the request body can&#39;t be empty) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateManagedTransactionAsyncWithHttpInfo($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, string $contentType = self::contentTypes['updateManagedTransaction'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionResponseBody';
+        $request = $this->updateManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateManagedTransaction'
+     *
+     * @param  string $account_guid The unique id for an &#x60;account&#x60;. (required)
+     * @param  string $member_guid The unique id for a &#x60;member&#x60;. (required)
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\ManagedTransactionUpdateRequestBody $managed_transaction_update_request_body Managed transaction object to be updated (While no single parameter is required, the request body can&#39;t be empty) (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateManagedTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateManagedTransactionRequest($account_guid, $member_guid, $transaction_guid, $user_guid, $managed_transaction_update_request_body, string $contentType = self::contentTypes['updateManagedTransaction'][0])
+    {
+
+        // verify the required parameter 'account_guid' is set
+        if ($account_guid === null || (is_array($account_guid) && count($account_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_guid when calling updateManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'member_guid' is set
+        if ($member_guid === null || (is_array($member_guid) && count($member_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $member_guid when calling updateManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling updateManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling updateManagedTransaction'
+            );
+        }
+
+        // verify the required parameter 'managed_transaction_update_request_body' is set
+        if ($managed_transaction_update_request_body === null || (is_array($managed_transaction_update_request_body) && count($managed_transaction_update_request_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $managed_transaction_update_request_body when calling updateManagedTransaction'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/managed_members/{member_guid}/accounts/{account_guid}/transactions/{transaction_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($account_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account_guid' . '}',
+                ObjectSerializer::toPathValue($account_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($member_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'member_guid' . '}',
+                ObjectSerializer::toPathValue($member_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($managed_transaction_update_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($managed_transaction_update_request_body));
+            } else {
+                $httpBody = $managed_transaction_update_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateTransaction
+     *
+     * Update transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionUpdateRequestBody $transaction_update_request_body Transaction object to be updated with a new description (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionResponseBody
+     */
+    public function updateTransaction($transaction_guid, $user_guid, $transaction_update_request_body, string $contentType = self::contentTypes['updateTransaction'][0])
+    {
+        list($response) = $this->updateTransactionWithHttpInfo($transaction_guid, $user_guid, $transaction_update_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation updateTransactionWithHttpInfo
+     *
+     * Update transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionUpdateRequestBody $transaction_update_request_body Transaction object to be updated with a new description (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransaction'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateTransactionWithHttpInfo($transaction_guid, $user_guid, $transaction_update_request_body, string $contentType = self::contentTypes['updateTransaction'][0])
+    {
+        $request = $this->updateTransactionRequest($transaction_guid, $user_guid, $transaction_update_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateTransactionAsync
+     *
+     * Update transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionUpdateRequestBody $transaction_update_request_body Transaction object to be updated with a new description (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateTransactionAsync($transaction_guid, $user_guid, $transaction_update_request_body, string $contentType = self::contentTypes['updateTransaction'][0])
+    {
+        return $this->updateTransactionAsyncWithHttpInfo($transaction_guid, $user_guid, $transaction_update_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateTransactionAsyncWithHttpInfo
+     *
+     * Update transaction
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionUpdateRequestBody $transaction_update_request_body Transaction object to be updated with a new description (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateTransactionAsyncWithHttpInfo($transaction_guid, $user_guid, $transaction_update_request_body, string $contentType = self::contentTypes['updateTransaction'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionResponseBody';
+        $request = $this->updateTransactionRequest($transaction_guid, $user_guid, $transaction_update_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateTransaction'
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionUpdateRequestBody $transaction_update_request_body Transaction object to be updated with a new description (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransaction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateTransactionRequest($transaction_guid, $user_guid, $transaction_update_request_body, string $contentType = self::contentTypes['updateTransaction'][0])
+    {
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling updateTransaction'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling updateTransaction'
+            );
+        }
+
+        // verify the required parameter 'transaction_update_request_body' is set
+        if ($transaction_update_request_body === null || (is_array($transaction_update_request_body) && count($transaction_update_request_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_update_request_body when calling updateTransaction'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transactions/{transaction_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($transaction_update_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($transaction_update_request_body));
+            } else {
+                $httpBody = $transaction_update_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateTransactionRule
+     *
+     * Update transaction_rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleUpdateRequestBody $transaction_rule_update_request_body TransactionRule object to be updated (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\TransactionRuleResponseBody
+     */
+    public function updateTransactionRule($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, string $contentType = self::contentTypes['updateTransactionRule'][0])
+    {
+        list($response) = $this->updateTransactionRuleWithHttpInfo($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation updateTransactionRuleWithHttpInfo
+     *
+     * Update transaction_rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleUpdateRequestBody $transaction_rule_update_request_body TransactionRule object to be updated (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\TransactionRuleResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateTransactionRuleWithHttpInfo($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, string $contentType = self::contentTypes['updateTransactionRule'][0])
+    {
+        $request = $this->updateTransactionRuleRequest($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\TransactionRuleResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateTransactionRuleAsync
+     *
+     * Update transaction_rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleUpdateRequestBody $transaction_rule_update_request_body TransactionRule object to be updated (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateTransactionRuleAsync($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, string $contentType = self::contentTypes['updateTransactionRule'][0])
+    {
+        return $this->updateTransactionRuleAsyncWithHttpInfo($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateTransactionRuleAsyncWithHttpInfo
+     *
+     * Update transaction_rule
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleUpdateRequestBody $transaction_rule_update_request_body TransactionRule object to be updated (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateTransactionRuleAsyncWithHttpInfo($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, string $contentType = self::contentTypes['updateTransactionRule'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\TransactionRuleResponseBody';
+        $request = $this->updateTransactionRuleRequest($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateTransactionRule'
+     *
+     * @param  string $transaction_rule_guid The unique id for a &#x60;transaction_rule&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  \OpenAPI\Client\Model\TransactionRuleUpdateRequestBody $transaction_rule_update_request_body TransactionRule object to be updated (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateTransactionRule'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateTransactionRuleRequest($transaction_rule_guid, $user_guid, $transaction_rule_update_request_body, string $contentType = self::contentTypes['updateTransactionRule'][0])
+    {
+
+        // verify the required parameter 'transaction_rule_guid' is set
+        if ($transaction_rule_guid === null || (is_array($transaction_rule_guid) && count($transaction_rule_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_rule_guid when calling updateTransactionRule'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling updateTransactionRule'
+            );
+        }
+
+        // verify the required parameter 'transaction_rule_update_request_body' is set
+        if ($transaction_rule_update_request_body === null || (is_array($transaction_rule_update_request_body) && count($transaction_rule_update_request_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_rule_update_request_body when calling updateTransactionRule'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transaction_rules/{transaction_rule_guid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($transaction_rule_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_rule_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_rule_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($transaction_rule_update_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($transaction_rule_update_request_body));
+            } else {
+                $httpBody = $transaction_rule_update_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitDelete
+     *
+     * Delete split transactions
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitDelete($transaction_guid, $user_guid, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'][0])
+    {
+        $this->usersUserGuidTransactionsTransactionGuidSplitDeleteWithHttpInfo($transaction_guid, $user_guid, $contentType);
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitDeleteWithHttpInfo
+     *
+     * Delete split transactions
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitDeleteWithHttpInfo($transaction_guid, $user_guid, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'][0])
+    {
+        $request = $this->usersUserGuidTransactionsTransactionGuidSplitDeleteRequest($transaction_guid, $user_guid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitDeleteAsync
+     *
+     * Delete split transactions
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitDeleteAsync($transaction_guid, $user_guid, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'][0])
+    {
+        return $this->usersUserGuidTransactionsTransactionGuidSplitDeleteAsyncWithHttpInfo($transaction_guid, $user_guid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitDeleteAsyncWithHttpInfo
+     *
+     * Delete split transactions
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitDeleteAsyncWithHttpInfo($transaction_guid, $user_guid, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'][0])
+    {
+        $returnType = '';
+        $request = $this->usersUserGuidTransactionsTransactionGuidSplitDeleteRequest($transaction_guid, $user_guid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'usersUserGuidTransactionsTransactionGuidSplitDelete'
+     *
+     * @param  string $transaction_guid The unique id for a &#x60;transaction&#x60;. (required)
+     * @param  string $user_guid The unique id for a &#x60;user&#x60;. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitDeleteRequest($transaction_guid, $user_guid, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitDelete'][0])
+    {
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling usersUserGuidTransactionsTransactionGuidSplitDelete'
+            );
+        }
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling usersUserGuidTransactionsTransactionGuidSplitDelete'
+            );
+        }
+
+
+        $resourcePath = '/users/{user_guid}/transactions/{transaction_guid}/split';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitPost
+     *
+     * Create split transactions
+     *
+     * @param  string $user_guid The unique identifier for the user. Defined by MX. (required)
+     * @param  string $transaction_guid The unique identifier for the transaction. Defined by MX. (required)
+     * @param  \OpenAPI\Client\Model\SplitTransactionRequestBody|null $split_transaction_request_body split_transaction_request_body (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \OpenAPI\Client\Model\SplitTransactionsResponseBody
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitPost($user_guid, $transaction_guid, $split_transaction_request_body = null, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'][0])
+    {
+        list($response) = $this->usersUserGuidTransactionsTransactionGuidSplitPostWithHttpInfo($user_guid, $transaction_guid, $split_transaction_request_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitPostWithHttpInfo
+     *
+     * Create split transactions
+     *
+     * @param  string $user_guid The unique identifier for the user. Defined by MX. (required)
+     * @param  string $transaction_guid The unique identifier for the transaction. Defined by MX. (required)
+     * @param  \OpenAPI\Client\Model\SplitTransactionRequestBody|null $split_transaction_request_body (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'] to see the possible values for this operation
+     *
+     * @throws \OpenAPI\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \OpenAPI\Client\Model\SplitTransactionsResponseBody, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitPostWithHttpInfo($user_guid, $transaction_guid, $split_transaction_request_body = null, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'][0])
+    {
+        $request = $this->usersUserGuidTransactionsTransactionGuidSplitPostRequest($user_guid, $transaction_guid, $split_transaction_request_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\OpenAPI\Client\Model\SplitTransactionsResponseBody',
+                        $request,
+                        $response,
+                    );
+            }
+
+
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\OpenAPI\Client\Model\SplitTransactionsResponseBody',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\SplitTransactionsResponseBody',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitPostAsync
+     *
+     * Create split transactions
+     *
+     * @param  string $user_guid The unique identifier for the user. Defined by MX. (required)
+     * @param  string $transaction_guid The unique identifier for the transaction. Defined by MX. (required)
+     * @param  \OpenAPI\Client\Model\SplitTransactionRequestBody|null $split_transaction_request_body (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitPostAsync($user_guid, $transaction_guid, $split_transaction_request_body = null, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'][0])
+    {
+        return $this->usersUserGuidTransactionsTransactionGuidSplitPostAsyncWithHttpInfo($user_guid, $transaction_guid, $split_transaction_request_body, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation usersUserGuidTransactionsTransactionGuidSplitPostAsyncWithHttpInfo
+     *
+     * Create split transactions
+     *
+     * @param  string $user_guid The unique identifier for the user. Defined by MX. (required)
+     * @param  string $transaction_guid The unique identifier for the transaction. Defined by MX. (required)
+     * @param  \OpenAPI\Client\Model\SplitTransactionRequestBody|null $split_transaction_request_body (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitPostAsyncWithHttpInfo($user_guid, $transaction_guid, $split_transaction_request_body = null, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'][0])
+    {
+        $returnType = '\OpenAPI\Client\Model\SplitTransactionsResponseBody';
+        $request = $this->usersUserGuidTransactionsTransactionGuidSplitPostRequest($user_guid, $transaction_guid, $split_transaction_request_body, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'usersUserGuidTransactionsTransactionGuidSplitPost'
+     *
+     * @param  string $user_guid The unique identifier for the user. Defined by MX. (required)
+     * @param  string $transaction_guid The unique identifier for the transaction. Defined by MX. (required)
+     * @param  \OpenAPI\Client\Model\SplitTransactionRequestBody|null $split_transaction_request_body (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function usersUserGuidTransactionsTransactionGuidSplitPostRequest($user_guid, $transaction_guid, $split_transaction_request_body = null, string $contentType = self::contentTypes['usersUserGuidTransactionsTransactionGuidSplitPost'][0])
+    {
+
+        // verify the required parameter 'user_guid' is set
+        if ($user_guid === null || (is_array($user_guid) && count($user_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $user_guid when calling usersUserGuidTransactionsTransactionGuidSplitPost'
+            );
+        }
+
+        // verify the required parameter 'transaction_guid' is set
+        if ($transaction_guid === null || (is_array($transaction_guid) && count($transaction_guid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $transaction_guid when calling usersUserGuidTransactionsTransactionGuidSplitPost'
+            );
+        }
+
+
+
+        $resourcePath = '/users/{user_guid}/transactions/{transaction_guid}/split';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($user_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'user_guid' . '}',
+                ObjectSerializer::toPathValue($user_guid),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($transaction_guid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'transaction_guid' . '}',
+                ObjectSerializer::toPathValue($transaction_guid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/vnd.mx.api.v1+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($split_transaction_request_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($split_transaction_request_body));
+            } else {
+                $httpBody = $split_transaction_request_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires HTTP basic authentication
+        if (!empty($this->config->getUsername()) || !(empty($this->config->getPassword()))) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($this->config->getUsername() . ":" . $this->config->getPassword());
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
 
     /**
      * Create http client option
