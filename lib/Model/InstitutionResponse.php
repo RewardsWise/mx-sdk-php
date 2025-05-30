@@ -45,22 +45,23 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     public const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $openAPIModelName = 'InstitutionResponse';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $openAPITypes = [
         'code' => 'string',
         'forgot_password_url' => 'string',
         'forgot_username_url' => 'string',
         'instructional_text' => 'string',
+        'iso_country_code'   =>  'array',
         'medium_logo_url' => 'string',
         'name' => 'string',
         'small_logo_url' => 'string',
@@ -75,17 +76,18 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      * @phpstan-var array<string, string|null>
-      * @psalm-var array<string, string|null>
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     * @phpstan-var array<string, string|null>
+     * @psalm-var array<string, string|null>
+     */
     protected static $openAPIFormats = [
         'code' => null,
         'forgot_password_url' => null,
         'forgot_username_url' => null,
         'instructional_text' => null,
+        'iso_country_code'   =>  null,
         'medium_logo_url' => null,
         'name' => null,
         'small_logo_url' => null,
@@ -100,15 +102,16 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     ];
 
     /**
-      * Array of nullable properties. Used for (de)serialization
-      *
-      * @var boolean[]
-      */
+     * Array of nullable properties. Used for (de)serialization
+     *
+     * @var boolean[]
+     */
     protected static array $openAPINullables = [
         'code' => true,
         'forgot_password_url' => true,
         'forgot_username_url' => true,
         'instructional_text' => true,
+        'iso_country_code'   =>  true,
         'medium_logo_url' => true,
         'name' => true,
         'small_logo_url' => true,
@@ -123,10 +126,10 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     ];
 
     /**
-      * If a nullable field gets set to null, insert it here
-      *
-      * @var boolean[]
-      */
+     * If a nullable field gets set to null, insert it here
+     *
+     * @var boolean[]
+     */
     protected array $openAPINullablesSetToNull = [];
 
     /**
@@ -212,6 +215,7 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'forgot_password_url' => 'forgot_password_url',
         'forgot_username_url' => 'forgot_username_url',
         'instructional_text' => 'instructional_text',
+        'iso_country_code'   =>  'iso_country_code',
         'medium_logo_url' => 'medium_logo_url',
         'name' => 'name',
         'small_logo_url' => 'small_logo_url',
@@ -235,6 +239,7 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'forgot_password_url' => 'setForgotPasswordUrl',
         'forgot_username_url' => 'setForgotUsernameUrl',
         'instructional_text' => 'setInstructionalText',
+        'iso_country_code'  => 'setIsoCountryCode',
         'medium_logo_url' => 'setMediumLogoUrl',
         'name' => 'setName',
         'small_logo_url' => 'setSmallLogoUrl',
@@ -258,6 +263,7 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         'forgot_password_url' => 'getForgotPasswordUrl',
         'forgot_username_url' => 'getForgotUsernameUrl',
         'instructional_text' => 'getInstructionalText',
+        'iso_country_code'  => 'getIsoCountryCode',
         'medium_logo_url' => 'getMediumLogoUrl',
         'name' => 'getName',
         'small_logo_url' => 'getSmallLogoUrl',
@@ -332,6 +338,7 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('forgot_password_url', $data ?? [], null);
         $this->setIfExists('forgot_username_url', $data ?? [], null);
         $this->setIfExists('instructional_text', $data ?? [], null);
+        $this->setIfExists('iso_country_code', $data ?? [], null);
         $this->setIfExists('medium_logo_url', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('small_logo_url', $data ?? [], null);
@@ -346,14 +353,14 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     }
 
     /**
-    * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
-    * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
-    * $this->openAPINullablesSetToNull array
-    *
-    * @param string $variableName
-    * @param array  $fields
-    * @param mixed  $defaultValue
-    */
+     * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
+     * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the
+     * $this->openAPINullablesSetToNull array
+     *
+     * @param string $variableName
+     * @param array  $fields
+     * @param mixed  $defaultValue
+     */
     private function setIfExists(string $variableName, array $fields, $defaultValue): void
     {
         if (self::isNullable($variableName) && array_key_exists($variableName, $fields) && is_null($fields[$variableName])) {
@@ -519,6 +526,40 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             }
         }
         $this->container['instructional_text'] = $instructional_text;
+
+        return $this;
+    }
+
+    /**
+     * Gets iso_country_code
+     *
+     * @return string|null
+     */
+    public function getIsoCountryCode()
+    {
+        return $this->container['iso_country_code'];
+    }
+
+    /**
+     * Sets iso_country_code
+     *
+     * @param string|null $iso_country_code $iso_country_code
+     *
+     * @return self
+     */
+    public function setIsoCountryCode($iso_country_code)
+    {
+        if (is_null($iso_country_code)) {
+            array_push($this->openAPINullablesSetToNull, 'iso_country_code');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('iso_country_code', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['iso_country_code'] = $iso_country_code;
 
         return $this;
     }
@@ -960,7 +1001,7 @@ class InstitutionResponse implements ModelInterface, ArrayAccess, \JsonSerializa
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-       return ObjectSerializer::sanitizeForSerialization($this);
+        return ObjectSerializer::sanitizeForSerialization($this);
     }
 
     /**
